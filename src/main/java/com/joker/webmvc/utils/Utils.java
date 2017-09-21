@@ -17,6 +17,8 @@ public class Utils {
 
 	public static String[] getParameterNamesByAsm5(Class<?> clazz,  
 			final Method method) {  
+		System.out.println(clazz);
+		System.out.println(method);
 		final Class<?>[] parameterTypes = method.getParameterTypes();  
 		if (parameterTypes == null || parameterTypes.length == 0) {  
 			return null;  
