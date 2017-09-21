@@ -16,8 +16,8 @@ import com.joker.webmvc.utils.RequestMethod;
  * Unit test for simple App.
  */
 public class AppTest {
-	@Test
-	public void testControlles() throws IllegalArgumentException, InvocationTargetException {
+//	@Test
+//	public void testControlles() throws IllegalArgumentException, InvocationTargetException {
 //		try {
 //			Object object = TestController.class.newInstance();
 //			Method[] methods = TestController.class.getDeclaredMethods();  
@@ -34,7 +34,7 @@ public class AppTest {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-	}
+//	}
 //	
 //	@Test
 //	public void testEmue() {
