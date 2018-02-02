@@ -22,7 +22,7 @@ import com.joker.webmvc.utils.Invocation;
 import com.joker.webmvc.utils.RequestMethod;
 
 /**
- * Servlet的抽象容器类、负责管理管理controller
+ * Servlet的抽象容器类、负责管理controller
  * @author joker
  *{@link https://github.com/Jokerblazes/webmvc.git}
  */

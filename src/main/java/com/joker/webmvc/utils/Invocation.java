@@ -1,6 +1,7 @@
 package com.joker.webmvc.utils;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * 反射容器类
@@ -58,5 +59,14 @@ public class Invocation {
 				return true;
 		return false;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Invocation{" +
+				"method=" + method +
+				", controller=" + controller +
+				", args=" + Arrays.toString(args) +
+				", requestMethods=" + Arrays.toString(requestMethods) +
+				'}';
+	}
 }

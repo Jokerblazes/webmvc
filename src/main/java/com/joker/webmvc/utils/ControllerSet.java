@@ -10,11 +10,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ControllerSet {
 	private ConcurrentHashMap<String, Invocation> controllerMap = new ConcurrentHashMap<String, Invocation>();
 	
-	public synchronized Invocation getInvocation(String uri) {
+	public Invocation getInvocation(String uri) {
 		return controllerMap.get(uri);
 	}
 	
-	public synchronized void setInvocation(String uri,Invocation invocation) {
-		controllerMap.put(uri, invocation);
+	public void setInvocation(String uri,Invocation invocation) {
+		controllerMap.putIfAbsent(uri, invocation);
 	}
 }

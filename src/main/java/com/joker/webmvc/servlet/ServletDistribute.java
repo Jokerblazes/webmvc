@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.joker.webmvc.annotation.ResponseBody;
 import com.joker.webmvc.exception.PermissionDenyException;
 import com.joker.webmvc.utils.Invocation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 转发类--负责请求的转发
@@ -22,7 +25,7 @@ import com.joker.webmvc.utils.Invocation;
  */
 public class ServletDistribute extends ServletFramework {
 	
-	
+	private final static Logger logger = LoggerFactory.getLogger(ServletDistribute.class);
 	private static final long serialVersionUID = 1L;
 
 	//请求分发逻辑处理
@@ -30,6 +33,7 @@ public class ServletDistribute extends ServletFramework {
 	protected void doDispatch(HttpServletRequest req, HttpServletResponse resp) {
 		//1:获取对应invocation
 		Invocation invocation = maphandler.getMethodByRequest(controllerSet,req);
+		logger.info("执行方法 {}",invocation);
 		if (invocation == null) {
 			return;
 		}
@@ -37,11 +41,13 @@ public class ServletDistribute extends ServletFramework {
 		//2:判断该函数是否允许对应的method
 		String methodName = req.getMethod();
 		if (!invocation.exitMethod(methodName)) {
+			logger.info("不存在{},此方法！");
 			throw new PermissionDenyException(methodName);
 		}
 		
 		//3:传入参数处理
 		Object[] results = adaptHandler.getParams(req,resp,invocation);
+		logger.info("参数列表 {}", Arrays.asList(results));
 		Method method = invocation.getMethod();
 		Object result = null;
 		//4:反射调用
@@ -58,8 +64,10 @@ public class ServletDistribute extends ServletFramework {
 		ResponseBody rb = method.getAnnotation(ResponseBody.class);
 		//6:返回前台
 		if (rb == null) {
+			logger.info("转发给前台 {}",result);
 			forward(req,(String)result,resp);
 		} else {
+			logger.info("打印给前台 {}",result);
 			print(resp, result);
 		}
 		
